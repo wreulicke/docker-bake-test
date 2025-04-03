@@ -35,8 +35,8 @@ jobs:
             latest=true
       # debug
       - run: |
-          echo cwd://${{ steps.meta.outputs.bake-file-tags }}
-          echo cwd://${{ steps.meta.outputs.bake-file-labels }}
+          cat cwd://${{ steps.meta.outputs.bake-file-tags }}
+          cat cwd://${{ steps.meta.outputs.bake-file-labels }}
 
       # bake
       - name: Build
