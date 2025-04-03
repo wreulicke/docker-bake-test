@@ -32,7 +32,7 @@ jobs:
             type=ref,event=tag
             type=sha
           flavor: |
-            latest
+            latest=true
       # debug
       - run: |
           echo cwd://${{ steps.meta.outputs.bake-file-tags }}
