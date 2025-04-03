@@ -20,7 +20,7 @@ target "default" {
   }
   name = img
   tags = [
-    "default-${img}:${VERSION}",
+    for tag in target.docker-metadata-action.tags: "default-${img}:${replace(tags, "dummy:", "")}"
   ] 
   target = img
 }

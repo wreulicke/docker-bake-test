@@ -44,5 +44,6 @@ jobs:
         with:
           files: |
             ./docker-bake.hcl
-            cwd://${{ steps.meta.outputs.bake-file-tags }}
-            cwd://${{ steps.meta.outputs.bake-file-labels }}
+            ${{ steps.metadata.outputs.bake-file }}
+        env:
+          VERSION: ${{ fromJSON(steps.meta.outputs.json).labels['org.opencontainers.image.version'] }}
