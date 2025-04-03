@@ -11,19 +11,15 @@ RUN go mod download -x
 
 COPY . ./
 
+# 本当は bazだけ必要な処理とかbazだけビルドしたりする
 RUN echo "${VERSION}" > /app/version && \
+  echo "baz" > /app/baz && \
   GOBIN=/app/bin go install -ldflags="-w -s -X main.version=${VERSION}" -v ./cmd/...
 
-FROM ${base_image} AS foo
+FROM ${base_image} AS baz
 
-COPY --from=builder /app/bin/foo /app/bin/foo
+COPY --from=builder /app/bin/baz /app/bin/baz
+COPY --from=builder /app/baz /app/baz
 COPY --from=builder /app/version /app/version
 
-CMD ["/app/bin/foo"]
-
-FROM ${base_image} AS bar
-
-COPY --from=builder /app/bin/bar /app/bin/bar
-COPY --from=builder /app/version /app/version
-
-CMD ["/app/bin/bar"]
+CMD ["/app/bin/baz"]
